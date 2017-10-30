@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import retrofit2.Retrofit;
 
 @Singleton
-class NetworkWrapper {
+public class NetworkWrapper {
 
   private Retrofit retrofit;
 
