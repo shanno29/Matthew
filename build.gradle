@@ -27,3 +27,13 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+ext {
+    roomVersion = "1.0.0-alpha9-1"
+    retrofitVersion = "2.3.0"
+    supportVersion = "26.1.0"
+    daggerVersion = "2.12"
+    epoxyVersion = "2.2.0"
+    gsmVersion = "11.4.2"
+}
