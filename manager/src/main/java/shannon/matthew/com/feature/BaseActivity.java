@@ -18,10 +18,10 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
 
   @Override
   protected void onCreate(Bundle bundle) {
-    AndroidInjection.inject(this);
     super.onCreate(bundle);
     binding = DataBindingUtil.setContentView(this, config.layout());
     getSupportFragmentManager().addOnBackStackChangedListener(this::setupToolbar);
+    AndroidInjection.inject(this);
   }
 
   @Override
