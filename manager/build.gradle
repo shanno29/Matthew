@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: "com.vanniktech.android.junit.jacoco"
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.shanno29'
 
@@ -7,6 +8,8 @@ android {
     buildToolsVersion "26.0.2"
 
     dataBinding { enabled = true }
+
+    testOptions { unitTests { includeAndroidResources = true } }
 
     defaultConfig {
         minSdkVersion 21
@@ -23,6 +26,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            versionNameSuffix " Debug"
+            testCoverageEnabled true
+            debuggable true
+            ext.alwaysUpdateBuildId = false
+            ext.enableCrashlytics = false
+            splits.abi.enable = false
+            splits.density.enable = false
+            aaptOptions.cruncherEnabled = false
+        }
     }
 
     compileOptions {
@@ -30,14 +43,56 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    junitJacoco {
+        includeNoLocationClasses = true
+        jacocoVersion = "0.7.9"
+        excludes = [
+                '**/com/wiscosoft/ridefree/databinding/*',
+                '**/android/databinding/*',
+                '**/*Test*.*',
+                '**/AutoValue_*.*',
+                '**/*_Impl*.*',
+                '**/*_*.*',
+                '**/*AjcClosure*',
+                '**/*JavascriptBridge.class',
+                '**/R.class',
+                '**/R$*.class',
+                '**/Manifest*.*',
+                'android/**/*.*',
+                '**/BuildConfig.*',
+                '**/*$ViewBinder*.*',
+                '**/*$ViewInjector*.*',
+                '**/*BR*.*',
+                '**/Lambda$*.class',
+                '**/Lambda.class',
+                '**/*Lambda.class',
+                '**/*Lambda*.class',
+                '**/*$InjectAdapter.class',
+                '**/*$ModuleAdapter.class',
+                '**/*$ViewInjector*.class',
+                '**/*_MembersInjector.class',
+                '**/*_MembersInjector*.*',
+                '**/*_*Factory*.*',
+                '**/*Component*.*',
+                '**/*Module*.*',
+                '**/*dataBinding/*.*'
+        ]
+    }
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
+
+    // ROOM
+    implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomVersion}"
+    implementation "android.arch.persistence.room:rxjava2:${rootProject.ext.roomVersion}"
+    implementation "android.arch.lifecycle:reactivestreams:${rootProject.ext.roomVersion}"
+    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomVersion}"
 
     // Retrofit
     implementation "com.google.code.gson:gson:2.8.1"
@@ -45,14 +100,6 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.retrofitVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
-
-    // Dagger 2
-    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVersion}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
-    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
-    testImplementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVersion}"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
-    testAnnotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
@@ -62,9 +109,13 @@ dependencies {
     implementation 'com.github.miguelbcr:RxPaparazzo:0.5.4-2.x'
     implementation 'com.github.akarnokd:rxjava2-interop:0.10.8'
 
-    // ROOM
-    implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomVersion}"
-    implementation "android.arch.persistence.room:rxjava2:${rootProject.ext.roomVersion}"
-    implementation "android.arch.lifecycle:reactivestreams:${rootProject.ext.roomVersion}"
-    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomVersion}"
+    // UNIT TESTING
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.robolectric:robolectric:3.4.2'
+    testImplementation 'org.robolectric:shadows-support-v4:3.0'
+    testImplementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVersion}"
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    testAnnotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
+
 }
