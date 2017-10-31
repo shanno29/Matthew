@@ -68,5 +68,4 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:${rootProject.ext.roomVersion}"
     implementation "android.arch.lifecycle:reactivestreams:${rootProject.ext.roomVersion}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomVersion}"
-
 }

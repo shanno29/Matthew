@@ -55,11 +55,11 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
   }
 
   public void goTo(Fragment fragment) {
-//    getFragmentManager().beginTransaction()
-//      .setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_left)
-//      .replace(android.R.id.content, fragment)
-//      .addToBackStack(null)
-//      .commit();
+    getFragmentManager().beginTransaction()
+      .setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_left)
+      .replace(android.R.id.content, fragment)
+      .addToBackStack(null)
+      .commit();
   }
 
   public void goBack() {
