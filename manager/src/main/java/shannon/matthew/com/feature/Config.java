@@ -1,4 +1,4 @@
-package shannon.matthew.com.manager.feature;
+package shannon.matthew.com.feature;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

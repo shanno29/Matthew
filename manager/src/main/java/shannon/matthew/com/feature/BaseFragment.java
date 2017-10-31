@@ -1,4 +1,4 @@
-package shannon.matthew.com.manager.feature;
+package shannon.matthew.com.feature;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package shannon.matthew.com.manager.feature;
+package shannon.matthew.com.feature;
 
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
