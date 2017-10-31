@@ -54,10 +54,10 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     inputManager.hideSoftInputFromWindow(view.getWindowToken(), HIDE_NOT_ALWAYS);
   }
 
-  public void goTo(Fragment fragment) {
+  public void goTo(int id, Fragment fragment) {
     getFragmentManager().beginTransaction()
       .setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_left)
-      .replace(android.R.id.content, fragment)
+      .replace(id, fragment)
       .addToBackStack(null)
       .commit();
   }
