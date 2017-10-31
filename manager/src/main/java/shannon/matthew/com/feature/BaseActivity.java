@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import shannon.matthew.com.manager.R;
+import shannon.matthew.com.R;
 
 public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppCompatActivity {
   public Config config = getClass().getAnnotation(Config.class);

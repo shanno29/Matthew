@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import io.reactivex.disposables.CompositeDisposable;
-import shannon.matthew.com.manager.R;
+import shannon.matthew.com.R;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.databinding.DataBindingUtil.inflate;
