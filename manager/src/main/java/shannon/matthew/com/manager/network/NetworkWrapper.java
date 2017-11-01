@@ -15,7 +15,7 @@ public class NetworkWrapper {
     this.retrofit = retrofit;
   }
 
-  public <T> T create(Class<T> t) {
+  public <T> T get(Class<T> t) {
     return retrofit.create(t);
   }
 

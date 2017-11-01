@@ -13,13 +13,10 @@ public class LocTest extends BaseTest {
     loc =  new Loc(0.0, 0.0);
   }
 
-
   @Test
   public void testConstructor() {
     Assert.assertEquals(loc.lat, 0.0, 0);
     Assert.assertEquals(loc.lon, 0.0, 0);
   }
-
-
 
 }
