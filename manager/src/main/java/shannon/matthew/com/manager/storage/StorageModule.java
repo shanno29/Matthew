@@ -17,11 +17,17 @@ public abstract class StorageModule {
 
   @Provides
   @Singleton
-  static RoomDatabase rideFreeDb(@Named("DATABASE") String path, @Named("CONTRACT") Class<? extends RoomDatabase> db, Context context) {
+  static RoomDatabase roomDatabase(@Named("DATABASE") String path, @Named("CONTRACT") Class<? extends RoomDatabase> db, Context context) {
     return Room.databaseBuilder(context, db, path)
       .fallbackToDestructiveMigration()
       .allowMainThreadQueries() // TODO REMOVE
       .build();
+  }
+
+
+  @Provides
+  static StorageWrapper storageWrapper(RoomDatabase roomDatabase) {
+    return new StorageWrapper(roomDatabase);
   }
 
 }
