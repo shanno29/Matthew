@@ -1,6 +1,5 @@
 package shannon.matthew.com.manager.storage;
 
-
 import android.arch.persistence.room.RoomDatabase;
 
 import javax.inject.Inject;
