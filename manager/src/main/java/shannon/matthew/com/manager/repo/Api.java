@@ -7,26 +7,24 @@ import shannon.matthew.com.manager.BaseManager;
 
 public abstract class Api<T> extends BaseManager {
 
-  Flowable<T> get(int id) {
+  public Flowable<T> get(int id) {
     throw new UnsupportedOperationException("get");
   }
 
-  Flowable<List<T>> getAll() {
+  public Flowable<List<T>> getAll() {
     throw new UnsupportedOperationException("getAll");
   }
 
-  Flowable<T> add(T t) {
+  public Flowable<T> add(T t) {
     throw new UnsupportedOperationException("add");
   }
 
-  Flowable<T> modify(T t) {
+  public Flowable<T> modify(T t) {
     throw new UnsupportedOperationException("modify");
-
   }
 
-  Flowable<T> delete(T t) {
+  public Flowable<T> delete(T t) {
     throw new UnsupportedOperationException("delete");
-
   }
 
 }
