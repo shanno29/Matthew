@@ -12,8 +12,12 @@ public interface Api<T> {
 
   Flowable<T> add(T t);
 
-  Flowable<T> modify(T t);
+  Flowable<T> update(T t);
+
+  Flowable<T> patch(T t);
 
   Flowable<T> delete(T t);
 
 }
+
+
