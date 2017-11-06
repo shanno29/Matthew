@@ -6,17 +6,16 @@ import io.reactivex.Flowable;
 
 public interface Api<T> {
 
-  Flowable<List<T>> getAll();
+  Flowable<T> add(T t);
+
+  Flowable<T> modify(T t);
+
+  Flowable<T> delete(T t);
 
   Flowable<T> get(int id);
 
-  Flowable<T> add(T t);
+  Flowable<List<T>> getAll();
 
-  Flowable<T> update(T t);
-
-  Flowable<T> patch(T t);
-
-  Flowable<T> delete(T t);
 
 }
 
