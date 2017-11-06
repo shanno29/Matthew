@@ -3,20 +3,30 @@ package shannon.matthew.com.manager.repo;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import shannon.matthew.com.manager.BaseManager;
 
-public interface Api<T> {
+public abstract class Api<T> extends BaseManager {
 
-  Flowable<T> add(T t);
+  Flowable<T> get(int id) {
+    throw new UnsupportedOperationException("get");
+  }
 
-  Flowable<T> modify(T t);
+  Flowable<List<T>> getAll() {
+    throw new UnsupportedOperationException("getAll");
+  }
 
-  Flowable<T> delete(T t);
+  Flowable<T> add(T t) {
+    throw new UnsupportedOperationException("add");
+  }
 
-  Flowable<T> get(int id);
+  Flowable<T> modify(T t) {
+    throw new UnsupportedOperationException("modify");
 
-  Flowable<List<T>> getAll();
+  }
 
+  Flowable<T> delete(T t) {
+    throw new UnsupportedOperationException("delete");
+
+  }
 
 }
-
-
