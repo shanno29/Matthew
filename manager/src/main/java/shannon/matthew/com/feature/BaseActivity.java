@@ -11,10 +11,15 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import shannon.matthew.com.R;
 
+import static io.reactivex.Observable.fromIterable;
+import static shannon.matthew.com.R.anim.slide_from_left;
+import static shannon.matthew.com.R.anim.slide_to_left;
+
 public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppCompatActivity {
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
   public Binding binding;
+  abstract void start();
 
   @Override
   protected void onCreate(Bundle bundle) {
@@ -22,6 +27,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     binding = DataBindingUtil.setContentView(this, config.layout());
     getSupportFragmentManager().addOnBackStackChangedListener(this::setupToolbar);
     AndroidInjection.inject(this);
+    start();
   }
 
   @Override
@@ -33,17 +39,16 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
 
 
   public void setupToolbar() {
-    sub.add(Observable.fromIterable(getSupportFragmentManager().getFragments())
-      .lastElement()
-      .cast(BaseFragment.class)
-      .map(v -> v.config.title())
+    sub.add(fromIterable(getSupportFragmentManager().getFragments())
+      .lastElement().cast(BaseFragment.class)
+      .map(frag -> frag.config.title())
       .subscribe(this::setTitle)
     );
   }
 
   public void goTo(Fragment fragment) {
     getSupportFragmentManager().beginTransaction()
-      .setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_left)
+      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
       .replace(config.root(), fragment)
       .addToBackStack(null)
       .commit();

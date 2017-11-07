@@ -7,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-
 import io.reactivex.disposables.CompositeDisposable;
-import shannon.matthew.com.R;
-
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.databinding.DataBindingUtil.inflate;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -24,6 +21,7 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
   public Binding binding;
+  abstract void start();
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -32,6 +30,12 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     getActivity().setTitle(config.title());
     inject(this);
     return binding.getRoot();
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle bundle) {
+    super.onViewCreated(view, bundle);
+    start();
   }
 
   @Override
