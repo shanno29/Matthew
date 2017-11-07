@@ -18,7 +18,7 @@ import static shannon.matthew.com.R.anim.slide_to_left;
 public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppCompatActivity {
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
-  public abstract void start();
+  public abstract void onReady();
   public Binding binding;
 
   @Override
@@ -27,7 +27,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     binding = DataBindingUtil.setContentView(this, config.layout());
     getSupportFragmentManager().addOnBackStackChangedListener(this::setupToolbar);
     AndroidInjection.inject(this);
-    start();
+    onReady();
   }
 
   @Override

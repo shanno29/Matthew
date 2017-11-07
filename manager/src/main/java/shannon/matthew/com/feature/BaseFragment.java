@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import io.reactivex.disposables.CompositeDisposable;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.databinding.DataBindingUtil.inflate;
-import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
+import static android.view.inputmethod.InputMethodManager.HIDE_IMPLICIT_ONLY;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 import static dagger.android.support.AndroidSupportInjection.inject;
@@ -20,7 +20,7 @@ import static shannon.matthew.com.R.anim.slide_to_left;
 public abstract class BaseFragment<Binding extends ViewDataBinding> extends Fragment {
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
-  public abstract void start();
+  public abstract void onReady();
   public Binding binding;
 
   @Override
@@ -35,7 +35,7 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
   @Override
   public void onViewCreated(View view, Bundle bundle) {
     super.onViewCreated(view, bundle);
-    start();
+    onReady();
   }
 
   @Override
@@ -45,19 +45,18 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     super.onDestroyView();
   }
 
+  public void goBack() {
+    hideKeyboard();
+    getFragmentManager().popBackStack();
+  }
+
   public void showToast(String msg) {
     makeText(getContext(), msg, LENGTH_SHORT).show();
   }
 
   public void hideKeyboard() {
-    View view = getActivity().getCurrentFocus();
-    if (view == null) return;
-
-    Object service = getActivity().getSystemService(INPUT_METHOD_SERVICE);
-    if (!(service instanceof InputMethodManager)) return;
-
-    InputMethodManager inputManager = ((InputMethodManager) service);
-    inputManager.hideSoftInputFromWindow(view.getWindowToken(), HIDE_NOT_ALWAYS);
+    InputMethodManager in = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+    if (in != null) in.toggleSoftInput(HIDE_IMPLICIT_ONLY, 0);
   }
 
   public void goTo(Fragment fragment) {
@@ -66,11 +65,6 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
       .replace(config.root(), fragment)
       .addToBackStack(null)
       .commit();
-  }
-
-  public void goBack() {
-    hideKeyboard();
-    getFragmentManager().popBackStack();
   }
 
 }
