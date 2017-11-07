@@ -11,11 +11,13 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import shannon.matthew.com.R;
 
+import static dagger.android.AndroidInjection.*;
 import static io.reactivex.Observable.fromIterable;
 import static shannon.matthew.com.R.anim.slide_from_left;
 import static shannon.matthew.com.R.anim.slide_to_left;
 
 public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppCompatActivity {
+
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
   public abstract void onReady();
@@ -26,7 +28,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     super.onCreate(bundle);
     binding = DataBindingUtil.setContentView(this, config.layout());
     getSupportFragmentManager().addOnBackStackChangedListener(this::setupToolbar);
-    AndroidInjection.inject(this);
+    inject(this);
     onReady();
   }
 
@@ -36,7 +38,6 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     binding.unbind();
     super.onDestroy();
   }
-
 
   public void setupToolbar() {
     sub.add(fromIterable(getSupportFragmentManager().getFragments())
@@ -55,4 +56,3 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
   }
 
 }
-

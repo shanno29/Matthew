@@ -18,6 +18,7 @@ import static shannon.matthew.com.R.anim.slide_from_left;
 import static shannon.matthew.com.R.anim.slide_to_left;
 
 public abstract class BaseFragment<Binding extends ViewDataBinding> extends Fragment {
+
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
   public abstract void onReady();
