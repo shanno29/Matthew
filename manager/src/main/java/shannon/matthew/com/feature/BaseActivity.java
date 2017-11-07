@@ -5,13 +5,8 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-
-import dagger.android.AndroidInjection;
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import shannon.matthew.com.R;
-
-import static dagger.android.AndroidInjection.*;
+import static dagger.android.AndroidInjection.inject;
 import static io.reactivex.Observable.fromIterable;
 import static shannon.matthew.com.R.anim.slide_from_left;
 import static shannon.matthew.com.R.anim.slide_to_left;
