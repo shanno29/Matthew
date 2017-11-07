@@ -20,8 +20,8 @@ import static shannon.matthew.com.R.anim.slide_to_left;
 public abstract class BaseFragment<Binding extends ViewDataBinding> extends Fragment {
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
+  public abstract void start();
   public Binding binding;
-  abstract void start();
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {

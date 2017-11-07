@@ -18,8 +18,8 @@ import static shannon.matthew.com.R.anim.slide_to_left;
 public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppCompatActivity {
   public Config config = getClass().getAnnotation(Config.class);
   public CompositeDisposable sub = new CompositeDisposable();
+  public abstract void start();
   public Binding binding;
-  abstract void start();
 
   @Override
   protected void onCreate(Bundle bundle) {
