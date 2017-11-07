@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.databinding.DataBindingUtil.inflate;
 import static android.view.inputmethod.InputMethodManager.HIDE_IMPLICIT_ONLY;
@@ -51,14 +52,23 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     getFragmentManager().popBackStack();
   }
 
+
+  public Consumer<Throwable> toToast = e -> makeText(getContext(), e.getMessage(), LENGTH_SHORT).show();
+
   public void showToast(String msg) {
     makeText(getContext(), msg, LENGTH_SHORT).show();
-  }
+}
 
   public void hideKeyboard() {
     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
     if (in != null) in.toggleSoftInput(HIDE_IMPLICIT_ONLY, 0);
   }
+
+  public Consumer<Fragment> goTo = fragment -> getFragmentManager().beginTransaction()
+    .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+    .replace(config.root(), fragment)
+    .addToBackStack(null)
+    .commit();
 
   public void goTo(Fragment fragment) {
     getFragmentManager().beginTransaction()
