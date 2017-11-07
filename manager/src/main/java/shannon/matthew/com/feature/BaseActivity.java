@@ -41,10 +41,10 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     );
   }
 
-  public void goTo(int id, Fragment fragment) {
+  public void goTo(Fragment fragment) {
     getSupportFragmentManager().beginTransaction()
       .setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_left)
-      .replace(id, fragment)
+      .replace(config.root(), fragment)
       .addToBackStack(null)
       .commit();
   }

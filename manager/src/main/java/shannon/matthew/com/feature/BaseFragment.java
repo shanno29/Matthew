@@ -17,6 +17,8 @@ import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 import static dagger.android.support.AndroidSupportInjection.inject;
+import static shannon.matthew.com.R.anim.slide_from_left;
+import static shannon.matthew.com.R.anim.slide_to_left;
 
 public abstract class BaseFragment<Binding extends ViewDataBinding> extends Fragment {
   public Config config = getClass().getAnnotation(Config.class);
@@ -54,10 +56,10 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     inputManager.hideSoftInputFromWindow(view.getWindowToken(), HIDE_NOT_ALWAYS);
   }
 
-  public void goTo(int id, Fragment fragment) {
+  public void goTo(Fragment fragment) {
     getFragmentManager().beginTransaction()
-      .setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_left)
-      .replace(id, fragment)
+      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+      .replace(config.root(), fragment)
       .addToBackStack(null)
       .commit();
   }

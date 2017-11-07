@@ -11,4 +11,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface Config {
   String title();
   int layout();
+  int root();
 }
