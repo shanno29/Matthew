@@ -55,27 +55,17 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
 
   public Consumer<Throwable> toToast = e -> makeText(getContext(), e.getMessage(), LENGTH_SHORT).show();
 
-  public void showToast(String msg) {
-    makeText(getContext(), msg, LENGTH_SHORT).show();
-}
+
+  public Consumer<Fragment> toNext = fragment -> getFragmentManager().beginTransaction()
+    .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+    .replace(config.root(), fragment)
+    .addToBackStack(null)
+    .commit();
 
   public void hideKeyboard() {
     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
     if (in != null) in.toggleSoftInput(HIDE_IMPLICIT_ONLY, 0);
   }
 
-  public Consumer<Fragment> goTo = fragment -> getFragmentManager().beginTransaction()
-    .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
-    .replace(config.root(), fragment)
-    .addToBackStack(null)
-    .commit();
-
-  public void goTo(Fragment fragment) {
-    getFragmentManager().beginTransaction()
-      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
-      .replace(config.root(), fragment)
-      .addToBackStack(null)
-      .commit();
-  }
 
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+
 import static dagger.android.AndroidInjection.inject;
 import static io.reactivex.Observable.fromIterable;
 import static shannon.matthew.com.R.anim.slide_from_left;
@@ -42,12 +44,10 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     );
   }
 
-  public void goTo(Fragment fragment) {
-    getSupportFragmentManager().beginTransaction()
-      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
-      .replace(config.root(), fragment)
-      .addToBackStack(null)
-      .commit();
-  }
+  public Consumer<Fragment> toNext = fragment -> getSupportFragmentManager().beginTransaction()
+    .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+    .replace(config.root(), fragment)
+    .addToBackStack(null)
+    .commit();
 
 }
