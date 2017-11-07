@@ -91,24 +91,21 @@ dependencies {
     // ROOM
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomVersion}"
     implementation "android.arch.persistence.room:rxjava2:${rootProject.ext.roomVersion}"
-    implementation "android.arch.lifecycle:reactivestreams:${rootProject.ext.roomVersion}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomVersion}"
 
     // Retrofit
-    implementation "com.google.code.gson:gson:2.8.1"
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.retrofitVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
 
     // Rx
-    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.5.6'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
-    implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
     implementation 'com.patloew.rxlocation:rxlocation:1.0.3'
     implementation 'com.github.raviteja06:RxPermissions:1.2.0'
     implementation 'com.github.miguelbcr:RxPaparazzo:0.5.4-2.x'
-    implementation 'com.github.akarnokd:rxjava2-interop:0.10.8'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
+    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.5.6'
 
     // UNIT TESTING
     testImplementation 'junit:junit:4.12'
