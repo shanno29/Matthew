@@ -11,13 +11,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.databinding.DataBindingUtil.inflate;
-import static android.view.inputmethod.InputMethodManager.HIDE_IMPLICIT_ONLY;
-import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 import static dagger.android.support.AndroidSupportInjection.inject;
 import static shannon.matthew.com.R.anim.slide_from_left;
 import static shannon.matthew.com.R.anim.slide_to_left;
-import static shannon.matthew.com.feature.Util.hideKeyboard;
 
 public abstract class BaseFragment<Binding extends ViewDataBinding> extends Fragment {
 
@@ -49,8 +47,19 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
   }
 
   public void goBack() {
-    hideKeyboard(getView());
+    hideKeyboard();
     getFragmentManager().popBackStack();
+  }
+
+  public Consumer<Throwable> toToastError = e -> makeText(getContext(), e.getMessage(), LENGTH_LONG).show();
+  public Consumer<String> toToast = msg -> makeText(getContext(), msg, LENGTH_LONG).show();
+
+  public void hideKeyboard() {
+    if (getView() == null) return;
+    InputMethodManager inputManager = (InputMethodManager) getView().getContext().getSystemService(INPUT_METHOD_SERVICE);
+
+    if (inputManager == null) return ;
+    inputManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
   }
 
   public Consumer<Fragment> toNext = fragment -> getFragmentManager().beginTransaction()
