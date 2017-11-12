@@ -17,6 +17,7 @@ import static android.widget.Toast.makeText;
 import static dagger.android.support.AndroidSupportInjection.inject;
 import static shannon.matthew.com.R.anim.slide_from_left;
 import static shannon.matthew.com.R.anim.slide_to_left;
+import static shannon.matthew.com.feature.Util.hideKeyboard;
 
 public abstract class BaseFragment<Binding extends ViewDataBinding> extends Fragment {
 
@@ -48,24 +49,14 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
   }
 
   public void goBack() {
-    hideKeyboard();
+    hideKeyboard(getView());
     getFragmentManager().popBackStack();
   }
-
-
-  public Consumer<Throwable> toToast = e -> makeText(getContext(), e.getMessage(), LENGTH_SHORT).show();
-
 
   public Consumer<Fragment> toNext = fragment -> getFragmentManager().beginTransaction()
     .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
     .replace(config.root(), fragment)
     .addToBackStack(null)
     .commit();
-
-  public void hideKeyboard() {
-    InputMethodManager in = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
-    if (in != null) in.toggleSoftInput(HIDE_IMPLICIT_ONLY, 0);
-  }
-
 
 }
