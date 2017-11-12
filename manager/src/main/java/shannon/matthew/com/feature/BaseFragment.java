@@ -52,7 +52,10 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
   }
 
   public Consumer<Throwable> toToastError = e -> makeText(getContext(), e.getMessage(), LENGTH_LONG).show();
-  public Consumer<String> toToast = msg -> makeText(getContext(), msg, LENGTH_LONG).show();
+
+  public void toToast(String msg) {
+    makeText(getContext(), msg, LENGTH_LONG).show();
+  }
 
   public void hideKeyboard() {
     if (getView() == null) return;
