@@ -107,6 +107,7 @@ dependencies {
     implementation 'com.github.miguelbcr:RxPaparazzo:0.5.4-2.x'
     implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.5.6'
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
 
     // UNIT TESTING
     testImplementation 'junit:junit:4.12'
