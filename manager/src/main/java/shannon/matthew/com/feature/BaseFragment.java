@@ -46,6 +46,8 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     super.onDestroyView();
   }
 
+  public void showError(Throwable throwable) { showToast(throwable.getMessage()); }
+
   public void showToast(String msg) {
     makeText(getContext(), msg, LENGTH_LONG).show();
   }
