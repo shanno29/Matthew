@@ -11,19 +11,14 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import java9.util.stream.StreamSupport;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static java9.util.stream.StreamSupport.*;
-import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 
 @Module
 public abstract class NetworkModule {
@@ -46,7 +41,7 @@ public abstract class NetworkModule {
   @Singleton
   static OkHttpClient provideOkHttpClient(Cache cache, Set<Interceptor> interceptors) {
     OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    stream(interceptors).forEach(builder::addInterceptor);
+    for (Interceptor i: interceptors) { builder.addInterceptor(i); }
     return builder
       .connectTimeout(30, SECONDS)
       .writeTimeout(30, SECONDS)

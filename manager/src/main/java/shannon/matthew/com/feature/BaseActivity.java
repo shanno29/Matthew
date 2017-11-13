@@ -38,18 +38,18 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
 
   public void setupToolbar() {
     sub.add(fromIterable(getSupportFragmentManager().getFragments())
-      .lastElement().cast(BaseFragment.class)
-      .map(frag -> frag.config.title())
-      .subscribe(this::setTitle)
+    .lastElement().cast(BaseFragment.class)
+    .map(frag -> frag.config.title())
+    .subscribe(this::setTitle)
     );
   }
 
   public void goTo(Fragment fragment) {
     getSupportFragmentManager().beginTransaction()
-      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
-      .replace(config.root(), fragment)
-      .addToBackStack(null)
-      .commit();
+        .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+        .replace(config.root(), fragment)
+        .addToBackStack(null)
+        .commit();
   }
 
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.databinding.DataBindingUtil.inflate;
 import static android.widget.Toast.LENGTH_LONG;
