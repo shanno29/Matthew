@@ -57,10 +57,9 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     inputManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
   }
 
-  public void toggleToolbar(boolean hide) {
+  public void hideToolbar() {
     if (getActivity().getActionBar() == null) return;
-    if (hide) getActivity().getActionBar().hide();
-    else getActivity().getActionBar().show();
+    getActivity().getActionBar().hide();
   }
 
   public void goBack() {
