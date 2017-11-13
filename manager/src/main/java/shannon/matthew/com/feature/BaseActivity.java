@@ -44,10 +44,12 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends AppC
     );
   }
 
-  public Consumer<Fragment> toNext = fragment -> getSupportFragmentManager().beginTransaction()
-    .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
-    .replace(config.root(), fragment)
-    .addToBackStack(null)
-    .commit();
+  public void goTo(Fragment fragment) {
+    getSupportFragmentManager().beginTransaction()
+      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+      .replace(config.root(), fragment)
+      .addToBackStack(null)
+      .commit();
+  }
 
 }

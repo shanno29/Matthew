@@ -46,29 +46,34 @@ public abstract class BaseFragment<Binding extends ViewDataBinding> extends Frag
     super.onDestroyView();
   }
 
-  public void goBack() {
-    hideKeyboard();
-    getFragmentManager().popBackStack();
-  }
-
-  public Consumer<Throwable> toToastError = e -> makeText(getContext(), e.getMessage(), LENGTH_LONG).show();
-
-  public void toToast(String msg) {
+  public void showToast(String msg) {
     makeText(getContext(), msg, LENGTH_LONG).show();
   }
 
   public void hideKeyboard() {
     if (getView() == null) return;
     InputMethodManager inputManager = (InputMethodManager) getView().getContext().getSystemService(INPUT_METHOD_SERVICE);
-
     if (inputManager == null) return ;
     inputManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
   }
 
-  public Consumer<Fragment> toNext = fragment -> getFragmentManager().beginTransaction()
-    .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
-    .replace(config.root(), fragment)
-    .addToBackStack(null)
-    .commit();
+  public void toggleToolbar(boolean hide) {
+    if (getActivity().getActionBar() == null) return;
+    if (hide) getActivity().getActionBar().hide();
+    else getActivity().getActionBar().show();
+  }
+
+  public void goBack() {
+    hideKeyboard();
+    getFragmentManager().popBackStack();
+  }
+
+  public void goTo(Fragment fragment) {
+    getFragmentManager().beginTransaction()
+      .setCustomAnimations(slide_from_left, slide_to_left, slide_from_left, slide_to_left)
+      .replace(config.root(), fragment)
+      .addToBackStack(null)
+      .commit();
+  }
 
 }
